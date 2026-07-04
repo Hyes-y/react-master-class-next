@@ -37,6 +37,20 @@ export interface Rating {
   Value: string
 }
 
+export const metadata = {
+  title: '영화 상세 정보',
+  description: '영화 상세 정보 설명',
+  openGraph: {
+    type: 'website',
+    siteName: 'next.js 연습프로젝트',
+    title: '영화 상세 정보(og)',
+    description: '영화 상세 정보 설명(og)',
+    images: 'https://picsum.photos/700/500'
+  }
+}
+
+
+// http://localhost:3000/movies/tt123455123
 export default async function MovieDetails({ params }: Props) {
   const { movieId } = await params
   const { data: movie } = await axios.get<Movie>(

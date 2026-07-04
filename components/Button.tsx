@@ -1,26 +1,53 @@
-import type { ButtonHTMLAttributes, ReactNode, RefObject } from 'react'
-import Loader from './Loader'
+import type { ReactNode, ButtonHTMLAttributes, RefObject } from 'react'
+import Loader from '@/components/Loader'
 
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
+type Size = 'md' | 'sm'
+
+// interface Props extends React.ButtonHTMLAttributes<> { // React Namespace 사용 시..
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   ref?:
     | RefObject<HTMLButtonElement>
-    | ((element: Element | null | undefined) => () => void)
-    | undefined
-  children?: ReactNode
+    | ((element: Element | null | undefined) => (() => void) | undefined)
   loading?: boolean
+  variant?: Variant
+  size?: Size
+  className?: string
+  children?: ReactNode
+}
+
+const variants: Record<Variant, string> = {
+  primary: 'bg-kb-yellow text-kb-black hover:bg-kb-yellow-strong',
+  secondary: 'bg-line text-ink hover:bg-line-2',
+  ghost: 'bg-transparent text-ink-2 hover:bg-line',
+  danger: 'bg-transparent text-negative hover:bg-negative/10'
+}
+
+const sizes: Record<Size, string> = {
+  md: 'h-12 px-5 text-[15px]',
+  sm: 'h-10 px-4 text-[14px]'
 }
 
 export default function Button({
   loading,
-  children,
+  variant = 'primary',
+  size = 'md',
   className = '',
+  children,
   ...restProps
 }: Props) {
   return (
     <button
       {...restProps}
-      className={`relative inline-flex h-12 min-w-[64px] items-center justify-center gap-2 rounded-[12px] bg-[#FFBC00] px-5 text-[15px] font-bold whitespace-nowrap text-[#1A1A1A] transition hover:bg-[#FFCC00] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 ${className}`}>
-      {loading ? <Loader /> : children}
+      className={`focus-visible:ring-kb-yellow/60 relative inline-flex items-center justify-center rounded-[12px] font-bold transition outline-none focus-visible:ring-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 ${variants[variant]} ${sizes[size]} ${className}`}>
+      {loading ? (
+        <Loader
+          size={20}
+          color="currentColor"
+        />
+      ) : (
+        children
+      )}
     </button>
   )
 }

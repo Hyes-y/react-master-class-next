@@ -1,5 +1,7 @@
-import Loader from '@/components/Loader'
-
 export default function Loading() {
-  return <Loader />
+  return (
+    <>
+      <h1>페이지를 로딩하고 있어요..</h1>
+    </>
+  )
 }
