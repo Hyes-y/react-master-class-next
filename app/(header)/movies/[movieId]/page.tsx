@@ -58,7 +58,7 @@ async function fetchMovie(movieId: string) {
   })
 
   const movie = await res.json()
-  
+
   return movie
 }
 
@@ -73,8 +73,8 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       type: 'website',
       siteName: 'next.js 연습프로젝트',
-      title: '[og] ' + movie.Title,
-      description: '[og] ' + movie.Plot,
+      title: '[og+] ' + movie.Title,
+      description: '[og+] ' + movie.Plot,
       images: movie.Poster
     }
 }
