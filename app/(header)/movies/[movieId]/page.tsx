@@ -54,7 +54,7 @@ async function fetchMovie(movieId: string) {
   //   `https://omdbapi.com?apikey=${process.env.OMDB_APIKEY}&i=${movieId}`
   // )
   const res = await fetch(`https://omdbapi.com?apikey=${process.env.OMDB_APIKEY}&i=${movieId}`, {
-    cache: 'force-cache' // next.js 전용 기능 -> 강제로 캐싱하겠돠!
+    cache: 'no-store' // next.js 전용 기능 -> 강제로 캐싱하겠돠!
   })
 
   const movie = await res.json()
